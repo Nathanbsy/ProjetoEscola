@@ -18,6 +18,7 @@
 
         public string Nota { get; set; }
 
+        public int Faltas { get; set; }
 
     }
 }

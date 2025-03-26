@@ -69,9 +69,23 @@ namespace ProjetoEscola.Controllers
             {
                 return NotFound();
             }
-
-            _context.Update(aluno);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Update(aluno);
+                await _context.SaveChangesAsync();
+            } 
+            catch
+            {
+                if (!AlunoExists(aluno.idAluno))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            
 
             return RedirectToAction(nameof(Index));
         }
@@ -96,7 +110,10 @@ namespace ProjetoEscola.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var aluno = await _context.Alunos.FindAsync(id);
-            _context.Alunos.Remove(aluno);
+            if (aluno != null)
+            {
+                _context.Alunos.Remove(aluno);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

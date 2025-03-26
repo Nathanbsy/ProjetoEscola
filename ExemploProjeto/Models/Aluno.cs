@@ -6,7 +6,7 @@
 
         public string nomeAluno { get; set; }
 
-        public int Faltas { get; set; }
+        public DateOnly DataNascimento { get; set; }
 
         public ICollection<Notas> NotaAluno { get; set; }
         
